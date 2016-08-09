@@ -1,0 +1,72 @@
+﻿extends layout
+
+block content
+  .jumbotron
+    h1 86Duino Remote Control Car
+    p
+  .row
+    .col-md-4
+      h2 Control
+      script(src='https://cdn.socket.io/socket.io-1.2.1.js')
+      script(src='https://cdnjs.cloudflare.com/ajax/libs/keypress/2.1.4/keypress.min.js')
+      .row.center.nopadding
+        .col-md-6
+          a.btn.btn-primary(onclick='move(1);') ↑
+      .row.center.nopadding
+        .col-md-6
+          a.btn.btn-info(onclick='move(2);') ←
+          a.btn.btn-danger(onclick='move(0);') ●
+          a.btn.btn-info(onclick='move(3);') →
+      .row.center.nopadding
+        .col-md-6
+          a.btn.btn-primary(onclick='move(4);') ↓
+    script.
+      var socket = io.connect();
+    .col-md-6
+      h2 Stream
+      .row.center.nopadding
+        .col-md-6
+          img(src='http://86duino.local:8080/?action=stream')
+    script.
+      var listener = new window.keypress.Listener();
+      var socket = io.connect();
+      listener.register_combo({
+        "keys": "right",
+        "on_keydown": function(){
+          socket.emit('move', {'cmd': 3});
+        },
+        "on_keyup": function(){
+          socket.emit('move', {'cmd': 0});
+        },
+        "prevent_repeat": true
+      });
+      listener.register_combo({
+        "keys": "left",
+        "on_keydown": function(){
+          socket.emit('move', {'cmd': 2});
+        },
+        "on_keyup": function(){
+          socket.emit('move', {'cmd': 0});
+        },
+        "prevent_repeat": true
+      });
+      listener.register_combo({
+        "keys": "down",
+        "on_keydown": function(){
+          socket.emit('move', {'cmd': 4});
+        },
+        "on_keyup": function(){
+          socket.emit('move', {'cmd': 0});
+        },
+        "prevent_repeat": true
+      });
+      listener.register_combo({
+        "keys": "up",
+        "on_keydown": function(){
+          socket.emit('move', {'cmd': 1});
+        },
+        "on_keyup": function(){
+          socket.emit('move', {'cmd': 0});
+        },
+        "prevent_repeat": true
+      });
