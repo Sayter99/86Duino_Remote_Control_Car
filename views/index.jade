@@ -26,8 +26,12 @@ block content
       h2 Stream
       .row.center.nopadding
         .col-md-6
-          img(src='http://86duino.local:8080/?action=stream')
+          img(id='stream')
     script.
+      var imgsrc = 'http://' + location.hostname + ':8080/?action=stream';
+      $(document).ready(fcuntion() {
+        $('#stream').attr('src', imgsrc);
+      });
       var listener = new window.keypress.Listener();
       var socket = io.connect();
       listener.register_combo({
