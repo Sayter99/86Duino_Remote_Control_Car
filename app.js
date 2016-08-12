@@ -45,41 +45,41 @@ gpio2.dir(m.DIR_OUT);
 gpio3.dir(m.DIR_OUT);
 
 serv_io.sockets.on('connection', function (socket) {
-	socket.on('move', function (data) {
+    socket.on('move', function (data) {
         if('0' == data.cmd) //stop
         {
-			gpio0.write(0);
-			gpio1.write(0);
-			gpio2.write(0);
-			gpio3.write(0);
+            gpio0.write(0);
+            gpio1.write(0);
+            gpio2.write(0);
+            gpio3.write(0);
         }
-		else if('1' == data.cmd) //up
+        else if('1' == data.cmd) //up
         {
-			gpio0.write(0);
+            gpio0.write(0);
             gpio1.write(1);
             gpio2.write(0);
             gpio3.write(1);
         }
         else if('2' == data.cmd) //left
         {
-			gpio0.write(0);
+            gpio0.write(0);
             gpio1.write(1);
             gpio2.write(1);
             gpio3.write(0);
         }
         else if('3' == data.cmd) //right
         {
-			gpio0.write(1);
+            gpio0.write(1);
             gpio1.write(0);
             gpio2.write(0);
             gpio3.write(1);
         }
         else if('4' == data.cmd) //down
         {
-			gpio0.write(1);
+            gpio0.write(1);
             gpio1.write(0);
             gpio2.write(1);
             gpio3.write(0);
         }
-	});
+    });
 });
